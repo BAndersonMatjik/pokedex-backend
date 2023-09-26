@@ -52,12 +52,12 @@ class PokeCatcherController {
             return BaseResponse(errorMessage = "name has not defined in Request body", status = false, result = "")
         }
         val pokeName = request.get("name")?.split("-")?.first()
-        var index = request.get("name")?.split("-")?.last()?.toInt()
-            ?: return BaseResponse(
-                errorMessage = "index has not defined name property in Request body",
-                status = false,
-                result = ""
-            )
+        val index = if (!(request.get("name")?.contains("-"))!!) {
+            0
+        } else {
+            request.get("name")?.split("-")?.last()?.toInt() ?: 0
+        }
+
         //last fibbonacci cache index 1
         //cache save in memory be
         // 0 1 1 2 3
