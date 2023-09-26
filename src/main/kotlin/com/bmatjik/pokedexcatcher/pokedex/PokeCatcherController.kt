@@ -37,7 +37,7 @@ class PokeCatcherController {
 
     @GetMapping("/release")
     fun releasePokemon(): BaseResponse<Int> {
-        val probabilty = Random.nextInt(0..100)
+        val probabilty = Random.nextInt(0..10   )
         val result = probabilty % 2 == 1
         return if (!result) {
             BaseResponse(status = true, result = probabilty)
