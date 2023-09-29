@@ -53,7 +53,7 @@ class PokeCatcherController {
         }
         val pokeName = request.get("name")?.split("-")?.first()
         val index = if (!(request.get("name")?.contains("-"))!!) {
-            0
+           null
         } else {
             request.get("name")?.split("-")?.last()?.toInt() ?: 0
         }
@@ -72,7 +72,11 @@ class PokeCatcherController {
             }
             isCache = true
         }
-        val result = pokeName + "-" + nextFibbonacci(index ?: 0, isCache)
+        val result = if (index!=null){
+            pokeName + "-" + nextFibbonacci(index ?: 0, isCache)
+        }else{
+            "$pokeName-0"
+        }
         return BaseResponse(status = true, result = result)
     }
 
@@ -81,6 +85,10 @@ class PokeCatcherController {
         if (isCache) {
             return n.toLong();
         }
+        if (n==0){
+            return 1L;
+        }
+
         val first = n * ((1 + sqrt(5.0)) / 2.0)
         return Math.round(first)
     }
